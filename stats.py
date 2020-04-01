@@ -76,17 +76,11 @@ class Gist:
 
 class Stats:
     def __init__(self, content, timeout = 5):
-        self.banner()
         self.content = content
         self.timeout = timeout
         self.gist = Gist()
         self.start()
 
-    def banner(self):
-        print('-' * 20)
-        print('>> STARTING')
-
     def start(self):
-        while (True):
-            self.gist.update(str(self.content))
-            sleep(60 * self.timeout)
+        self.gist.update(str(self.content))
+        sleep(60 * self.timeout)
