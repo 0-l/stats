@@ -1,0 +1,22 @@
+* Stats
+
+  Utility to update pinned gists with any +irrelevant+ data.
+
+** Setup
+
+   1. Download or clone this repository in a directory of your choice.
+   2. Inside the project folder, create a =config.json= file with the following contents:
+
+	  #+begin_src json
+		{
+		  "user": "<your-github-user>",
+		  "hash": "<gist-hash>",
+		  "token": "<access-token>"
+		}
+	  #+end_src
+
+   3. Create a [[https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line][new personal access token]] with the =gist= scope. Copy the generated token and paste it in the /token/ key in the =config.json=.
+   4. Create a [[https://gist.github.com/][new gist]] (the filename doesn't matter).
+   5. Copy the hash from the newly created gist's URL: (gist.github.com/<user>/ *<hash>*) and paste it in the /hash/ key in the =config.json=.
+   6. Run =sh run.sh= and check if the gist was updated.
+   7. Pin the gist on your profile!
