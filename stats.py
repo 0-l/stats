@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 
-import requests
-import json
-import datetime
-
 from time   import sleep
 from typing import Dict
 
+import json
+import requests
+
 class Config:
+    """Reads the config file"""
+
     Config = Dict[str, str]
 
     def __init__(self, path):
@@ -24,6 +25,8 @@ class Config:
         return self.config
 
 class Gist:
+    """Handles all Gist requests"""
+
     ISSUES_URL = "https://github.com/0-l/stats/issues/new"
 
     RESPONSES = {
@@ -32,7 +35,7 @@ class Gist:
         404: 'Filename not found.',
         500: "\n".join(
             ["Something broke :(", "Report this bug at: {0}"
-                .format(ISSUES_URL)]
+             .format(ISSUES_URL)]
         )
     }
 
@@ -54,8 +57,8 @@ class Gist:
             files = request.json()['files']
 
             return next(iter(files.values()))
-        except requests.exceptions.RequestException as e:
-            raise SystemExit(e)
+        except requests.exceptions.RequestException as err:
+            raise SystemExit(err)
 
     def update(self, content: str):
         files = self.get_files()
@@ -66,7 +69,6 @@ class Gist:
                 }
             }
         }
-
         response = requests.post(
             self.base_url,
             data=json.dumps(payload),
@@ -75,6 +77,8 @@ class Gist:
         self.handle_status(response.status_code)
 
 class Stats:
+    """Setup class"""
+
     def __init__(self, content, timeout = 5):
         self.content = content
         self.timeout = timeout
